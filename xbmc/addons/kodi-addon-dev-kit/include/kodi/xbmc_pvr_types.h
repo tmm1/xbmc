@@ -31,6 +31,7 @@
 #include "DemuxPacket.h"
 #else
 struct DemuxPacket;
+typedef struct DemuxPacket DemuxPacket;
 #endif
 
 #undef ATTRIBUTE_PACKED
@@ -620,6 +621,7 @@ extern "C" {
     xbmc_codec_t (*GetCodecByName)(const void* kodiInstance, const char* strCodecName);
   } AddonToKodiFuncTable_PVR;
 
+#ifdef __cplusplus
   /*!
    * @brief Structure to transfer the methods from xbmc_pvr_dll.h to Kodi
    */
@@ -708,6 +710,7 @@ extern "C" {
     AddonToKodiFuncTable_PVR toKodi;
     KodiToAddonFuncTable_PVR toAddon;
   } AddonInstance_PVR;
+#endif
 
 #ifdef __cplusplus
 }

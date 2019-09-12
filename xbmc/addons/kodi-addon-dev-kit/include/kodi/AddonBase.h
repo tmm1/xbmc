@@ -9,11 +9,17 @@
 #pragma once
 
 #include <stdarg.h>     /* va_list, va_start, va_arg, va_end */
+#ifdef __cplusplus
 #include <cstdlib>
 #include <cstring>
 #include <stdexcept>
 #include <string>
 #include <vector>
+#else
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#endif
 
 #ifndef TARGET_WINDOWS
 #ifndef __cdecl
@@ -59,10 +65,14 @@
 
 #include "versions.h"
 
+#ifdef __cplusplus
 namespace kodi { namespace addon { class CAddonBase; }}
 namespace kodi { namespace addon { class IAddonInstance; }}
+#endif
 
+#ifdef __cplusplus
 extern "C" {
+#endif
 
 //==============================================================================
 /// Standard undefined pointer handle
@@ -134,7 +144,7 @@ struct ADDON_HANDLE_STRUCT
   void *dataAddress;    /*!< address to store data in */
   int   dataIdentifier; /*!< parameter to pass back when calling the callback */
 };
-typedef ADDON_HANDLE_STRUCT *ADDON_HANDLE;
+typedef struct ADDON_HANDLE_STRUCT *ADDON_HANDLE;
 
 /*
  * To have a on add-on and kodi itself handled string always on known size!
@@ -174,11 +184,11 @@ typedef struct AddonToKodiFuncTable_Addon
   bool (*set_setting_float)(void* kodiBase, const char* id, float value);
   bool (*set_setting_string)(void* kodiBase, const char* id, const char* value);
 
-  AddonToKodiFuncTable_kodi* kodi;
-  AddonToKodiFuncTable_kodi_audioengine* kodi_audioengine;
-  AddonToKodiFuncTable_kodi_filesystem* kodi_filesystem;
-  AddonToKodiFuncTable_kodi_gui* kodi_gui;
-  AddonToKodiFuncTable_kodi_network *kodi_network;
+  struct AddonToKodiFuncTable_kodi* kodi;
+  struct AddonToKodiFuncTable_kodi_audioengine* kodi_audioengine;
+  struct AddonToKodiFuncTable_kodi_filesystem* kodi_filesystem;
+  struct AddonToKodiFuncTable_kodi_gui* kodi_gui;
+  struct AddonToKodiFuncTable_kodi_network *kodi_network;
 
   void* (*get_interface)(void* kodiBase, const char *name, const char *version);
 } AddonToKodiFuncTable_Addon;
@@ -196,6 +206,7 @@ typedef struct KodiToAddonFuncTable_Addon
   ADDON_STATUS(*create_instance_ex)(int instanceType, const char* instanceID, KODI_HANDLE instance, KODI_HANDLE* addonInstance, KODI_HANDLE parent, const char* version);
 } KodiToAddonFuncTable_Addon;
 
+#ifdef __cplusplus
 /*
  * Main structure passed from kodi to addon with basic information needed to
  * create add-on.
@@ -226,9 +237,13 @@ typedef struct AddonGlobalInterface
   // Set from addon header!
   KodiToAddonFuncTable_Addon* toAddon;
 } AddonGlobalInterface;
+#endif
 
+#ifdef __cplusplus
 } /* extern "C" */
+#endif
 
+#ifdef __cplusplus
 //==============================================================================
 namespace kodi {
 namespace addon {
@@ -698,3 +713,4 @@ inline void* GetInterface(const std::string &name, const std::string &version)
   AddonGlobalInterface* kodi::addon::CAddonBase::m_interface = nullptr; \
   std::string kodi::addon::CAddonBase::m_strGlobalApiVersion;
 
+#endif
