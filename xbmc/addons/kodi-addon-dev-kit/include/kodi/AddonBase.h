@@ -31,18 +31,14 @@
 #endif
 
 #undef ATTRIBUTE_PACKED
-#undef PRAGMA_PACK_BEGIN
-#undef PRAGMA_PACK_END
-
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined(_WIN32)
   #define ATTRIBUTE_PACKED __attribute__ ((packed))
-  #define PRAGMA_PACK 0
-  #define ATTRIBUTE_HIDDEN __attribute__ ((visibility ("hidden")))
+#else
+  #define ATTRIBUTE_PACKED
 #endif
 
-#if !defined(ATTRIBUTE_PACKED)
-  #define ATTRIBUTE_PACKED
-  #define PRAGMA_PACK 1
+#if defined(__GNUC__)
+  #define ATTRIBUTE_HIDDEN __attribute__ ((visibility ("hidden")))
 #endif
 
 #if !defined(ATTRIBUTE_HIDDEN)

@@ -12,17 +12,10 @@
 #include <time.h>
 
 #undef ATTRIBUTE_PACKED
-#undef PRAGMA_PACK_BEGIN
-#undef PRAGMA_PACK_END
-
-#if defined(__GNUC__)
+#if defined(__GNUC__) && !defined(_WIN32)
 #define ATTRIBUTE_PACKED __attribute__ ((packed))
-#define PRAGMA_PACK 0
-#endif
-
-#if !defined(ATTRIBUTE_PACKED)
+#else
 #define ATTRIBUTE_PACKED
-#define PRAGMA_PACK 1
 #endif
 
 /*! @name EPG entry content event types */
