@@ -103,12 +103,12 @@ extern "C" {
   /*!
    * @brief special PVR_TIMER.iParentClientIndex value to indicate that a timer has no parent.
    */
-  static const unsigned int PVR_TIMER_NO_PARENT = PVR_TIMER_NO_CLIENT_INDEX; /*!< @brief timer has no parent; it was not scheduled by a repeating timer. */
+  static const unsigned int PVR_TIMER_NO_PARENT = 0;//PVR_TIMER_NO_CLIENT_INDEX; /*!< @brief timer has no parent; it was not scheduled by a repeating timer. */
 
   /*!
    * @brief special PVR_TIMER.iEpgUid value to indicate that a timer has no EPG event uid.
    */
-  static const unsigned int PVR_TIMER_NO_EPG_UID = EPG_TAG_INVALID_UID; /*!< @brief timer has no EPG event uid. */
+  static const unsigned int PVR_TIMER_NO_EPG_UID = 0;//EPG_TAG_INVALID_UID; /*!< @brief timer has no EPG event uid. */
 
   /*!
    * @brief special PVR_TIMER.iClientChannelUid value to indicate "any channel". Useful for some repeating timer types.
@@ -160,9 +160,10 @@ extern "C" {
   static const unsigned int PVR_WEEKDAY_FRIDAY    = 0x10;
   static const unsigned int PVR_WEEKDAY_SATURDAY  = 0x20;
   static const unsigned int PVR_WEEKDAY_SUNDAY    = 0x40;
-  static const unsigned int PVR_WEEKDAY_ALLDAYS   = PVR_WEEKDAY_MONDAY   | PVR_WEEKDAY_TUESDAY | PVR_WEEKDAY_WEDNESDAY |
-                                             PVR_WEEKDAY_THURSDAY | PVR_WEEKDAY_FRIDAY  | PVR_WEEKDAY_SATURDAY  |
-                                             PVR_WEEKDAY_SUNDAY;
+  static const unsigned int PVR_WEEKDAY_ALLDAYS   = 0x7f;
+  //static const unsigned int PVR_WEEKDAY_ALLDAYS   = PVR_WEEKDAY_MONDAY   | PVR_WEEKDAY_TUESDAY | PVR_WEEKDAY_WEDNESDAY |
+  //                                           PVR_WEEKDAY_THURSDAY | PVR_WEEKDAY_FRIDAY  | PVR_WEEKDAY_SATURDAY  |
+  //                                           PVR_WEEKDAY_SUNDAY;
 
   /*!
    * @brief timeframe value for use with SetEPGTimeFrame function to indicate "no timeframe".
